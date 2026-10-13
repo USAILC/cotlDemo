@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CoTL 2026</title>
+  <meta charset="utf-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Public+Sans:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#program" data-scroll>Skip to the program</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a id="brand" class="brand" href="#top" data-scroll></a>
+      <nav id="nav" class="site-nav" aria-label="Sections"></nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <p id="loading" class="wrap" style="padding:4rem 0">Loading the conference program…</p>
+    <section id="hero" class="hero"></section>
+    <section id="welcome" class="section" hidden></section>
+    <section id="keynotes" class="section" hidden></section>
+    <section id="program" class="section" aria-labelledby="program-title"></section>
+    <section id="venue" class="section" hidden></section>
+    <section id="partners" class="section" hidden></section>
+  </main>
+
+  <footer id="footer" class="site-footer"></footer>
+
+  <dialog id="session-dialog" class="session" aria-labelledby="dlg-title"></dialog>
+
+   <script>
+     var DATA_URL = 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec';
+     fetch(DATA_URL)
+       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+       .then(function (data) {
+         window.CONF_DATA = data;
+         document.getElementById('loading').remove();
+         var s = document.createElement('script');
+         s.src = 'app.js';
+         document.body.appendChild(s);
+       })
+       .catch(function () {
+         document.getElementById('loading').textContent =
+           'The program couldn’t load. Refresh the page to try again.';
+       });
+   </script>
+</body>
+</html>
